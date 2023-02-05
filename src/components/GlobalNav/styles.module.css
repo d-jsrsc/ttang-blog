@@ -1,0 +1,17 @@
+.active {
+  /* color: gold; */
+  position: relative;
+}
+ 
+.active::after {
+  content: ' ';
+  bottom: -12px;
+  width: 100%;
+  left: 0;
+  height: 3px;
+  position: absolute;
+  width: 100%;
+  background: rgb(255, 255, 255);
+  border-radius: 100px 100px 0px 0px;
+}
+ 

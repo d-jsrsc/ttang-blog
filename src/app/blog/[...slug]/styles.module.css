@@ -1,0 +1,7 @@
+.revert  > * {
+    font-size: revert;
+}
+
+.markdown-body {
+    background-color: inherit !important;
+}
