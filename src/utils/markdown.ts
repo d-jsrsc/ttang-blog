@@ -1,12 +1,10 @@
 import MarkdownIt from "markdown-it";
-
 import Prism from "prismjs";
 
+import "prismjs/components/prism-bash";
 import "prismjs/components/prism-rust";
 import "prismjs/components/prism-javascript";
 import "prismjs/components/prism-typescript";
-
-type MarkdownStr = string;
 
 const md: MarkdownIt = new MarkdownIt("default", {
   html: true,
