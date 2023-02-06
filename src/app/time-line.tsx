@@ -13,15 +13,18 @@ type DateItem = {
   meta?: undefined | any;
 };
 
+export const revalidate = 60 * 60 * 12;
+
 async function time_line(ms: number): Promise<{
   name: string;
   data: {
     [key: string]: Array<DateItem>;
   };
 }> {
-  let title = "Next.js Quarter Zip";
-
-  const response = await fetch(new URL(`/server/times`, API_SERVER));
+  const response = await fetch(new URL(`/server/times`, API_SERVER), {
+    // cache: "force-cache",
+    next: { revalidate },
+  });
   const data: {
     name: string;
     data: {

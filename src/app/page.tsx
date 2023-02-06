@@ -15,8 +15,13 @@ type RecommendData = {
   card: string; //"/deno/2023-02/使用 Deno 开发一个 blog-server/card.webp";
 };
 
+export const revalidate = 60 * 60 * 12; // seconds
+
 async function recommend(): Promise<any> {
-  const response = await fetch(new URL(`/server/recommend`, API_SERVER));
+  const response = await fetch(new URL(`/server/recommend`, API_SERVER), {
+    // cache: "force-cache",
+    next: { revalidate },
+  });
   const data: {
     name: string;
     data: Array<RecommendData>;
