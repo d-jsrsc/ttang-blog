@@ -64,13 +64,13 @@ export default function TimeLine() {
             </div>
           );
         })}
-        <div>
+        {/* <div>
           <h3 className="top-0 sticky">{"k"}</h3>
 
           {new Array(100).fill("").map((item, idx) => {
             return <h1 key={idx}>ss</h1>;
           })}
-        </div>
+        </div> */}
       </div>
     </div>
   );

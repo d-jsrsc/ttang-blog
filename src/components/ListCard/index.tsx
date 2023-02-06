@@ -1,37 +1,51 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 
-export default function ListCard() {
+export default function ListCard({
+  title,
+  intro,
+  type,
+  card_img,
+  href,
+  date,
+}: {
+  title: string;
+  intro: string;
+  type: string;
+  href: string;
+  date: string;
+  card_img: string;
+}) {
   return (
     <div className="flex flex-row gap-3 h-40 group relative">
-      <div className="h-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75">
-        <img
-          src="https://arweave.net/ptFAPiNVdlyCCQnrRaqI5FwF2fpbvkPr5GBLbyjmAiE?ext=png"
-          alt=""
-          className="h-full w-52 object-cover object-center"
-        />
+      <div className="h-full w-52 overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75">
+        <img src={`/card${card_img}`} alt="" />
       </div>
       <div className="flex flex-col justify-between">
         <div className="">
           <h3 className="text-xl text-slate-500 dark:text-slate-200">
-            Power By Next.js
+            {title}
           </h3>
-          <p className="my-2 text-slate-500 dark:text-slate-200">
-            https://arweave.net/ptFAPiNVdlyCCQnrRaqI5FwF2fpbvkPr5GBLbyjmAiE?ext=png
-          </p>
-          <time
-            className="relative z-10 order-first mb-3 flex items-center text-sm text-zinc-400 dark:text-zinc-500"
-            dateTime="2022-09-02"
-          >
-            September 2, 2022
-          </time>
+          <p className="my-2 text-slate-500 dark:text-slate-200">{intro}</p>
+          <div>
+            <span className="text-sm capitalize leading-6 text-slate-600 md:order-first md:rounded-full md:px-2 md:text-xs md:font-semibold md:leading-7 md:bg-slate-100 md:text-slate-500 md:group-hover:bg-slate-200">
+              {type}
+            </span>
+            <time
+              className="relative z-10 order-first ml-3 inline-flex items-center text-sm text-zinc-400 dark:text-zinc-500"
+              dateTime={date}
+            >
+              {date}
+            </time>
+          </div>
         </div>
         <div>
           <Link
             className="hover:break-after-column flex items-center text-sm text-teal-500"
-            href={`/blog/rust/2023-02/tokio-step-0`}
+            href={`/blog${href}`}
           >
             <span aria-hidden="true" className="absolute inset-0"></span>
-            <span> Read article</span>
+            <span>{"Read"}</span>
             <svg
               viewBox="0 0 16 16"
               fill="none"

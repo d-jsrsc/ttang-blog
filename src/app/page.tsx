@@ -1,23 +1,72 @@
+import { Suspense, use } from "react";
+import Image from "next/image";
+
 import ListCard from "@/components/ListCard";
 import { SkeletonCard } from "@/components/SkeletonCard";
-import { Suspense } from "react";
+
 import TimeLine from "./time-line";
+import { API_SERVER } from "@/constants";
+
+type RecommendData = {
+  type: string; //'blog',
+  path: string; //'/deno/2023-02/使用 Deno 开发一个 blog-server',
+  meta: any;
+  date: string;
+  card: string; //"/deno/2023-02/使用 Deno 开发一个 blog-server/card.webp";
+};
+
+async function recommend(): Promise<any> {
+  const response = await fetch(new URL(`/server/recommend`, API_SERVER));
+  const data: {
+    name: string;
+    data: Array<RecommendData>;
+  } = await response.json();
+  return data;
+}
 
 export default function Home() {
+  const {
+    data,
+  }: {
+    data: Array<RecommendData>;
+  } = use(recommend());
+  // console.log(data);
   return (
     <>
       <div className="w-full sticky top-0">
         {/* <div className="relative z-10 md:text-center lg:text-left"> */}
-        <img src="/onepiece.jpg" alt="" />
+        <Image
+          src="/onepiece.jpg"
+          alt=""
+          width={700}
+          height={475}
+          sizes="100vw"
+          style={{
+            width: "100%",
+            height: "auto",
+          }}
+        />
       </div>
       <div className="bg-white dark:bg-zinc-900 pt-5 grow z-10 flex flex-col gap-5 text-slate-700 dark:text-slate-200">
         <div className="px-2 mx-auto container max-w-7xl flex flex-row gap-5">
           <div className="basis-3/4 flex flex-col gap-5">
-            <ListCard />
-            <ListCard />
-            {new Array(199).fill("").map((item, idx) => {
-              return <h1 key={idx}>{idx}</h1>;
+            {data.map((item) => {
+              return (
+                <ListCard
+                  key={item.path}
+                  href={item.path}
+                  card_img={item.card}
+                  type={item.type}
+                  title={item.meta.title}
+                  intro={item.meta.intro}
+                  date={item.meta.date}
+                />
+              );
             })}
+
+            {/* {new Array(199).fill("").map((item, idx) => {
+              return <h1 key={idx}>{idx}</h1>;
+            })} */}
           </div>
           <section className="basis-1/4 sticky top-20 h-fit">
             <Suspense

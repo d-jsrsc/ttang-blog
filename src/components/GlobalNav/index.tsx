@@ -6,11 +6,12 @@ import { usePathname } from "next/navigation";
 
 import styles from "./styles.module.css";
 
-export function GlobalNav({ types }: { types: string[] }) {
-  const pathname = usePathname();
+export const revalidate = 86400; //60 * 60 * 24; // seconds
 
-  // console.log({ pathname });
+export function GlobalNav({ navs }: { navs: string[] }) {
+  const pathname = usePathname();
   const pathnameArr = pathname?.split("/") || [];
+
   return (
     <header className="w-full fixed top-0 z-50  bg-white/95 dark:bg-zinc-900/95">
       <div className="w-full border-b border-b-gray-500">
@@ -24,17 +25,17 @@ export function GlobalNav({ types }: { types: string[] }) {
           <div className="grow flex items-center justify-between text-lg leading-10 text-slate-700 dark:text-slate-200">
             <nav className="">
               <ul className="flex items-center">
-                {types.map((type) => {
+                {navs.map((nav) => {
                   return (
                     <li
-                      key={type}
+                      key={nav}
                       className={clsx(
                         "px-2 hover:text-slate-900 dark:hover:text-slate-300",
-                        pathnameArr[1] === type ? styles.active : ""
+                        pathnameArr[1] === nav ? styles.active : ""
                       )}
                     >
-                      <Link href={`/${type}`} className="capitalize">
-                        {type}
+                      <Link href={`/${nav}`} className="capitalize">
+                        {nav}
                       </Link>
                     </li>
                   );
