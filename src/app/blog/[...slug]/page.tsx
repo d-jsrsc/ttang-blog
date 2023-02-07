@@ -10,8 +10,8 @@ const fetch_blog_data = async (blog_path: string) => {
   const response = await fetch(
     new URL(`/server/blog/${blog_path}`, API_SERVER),
     {
-      // cache: "no-cache",
-      next: { revalidate },
+      cache: "no-cache",
+      // next: { revalidate },
     }
   );
   const data: {
