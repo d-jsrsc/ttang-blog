@@ -6,7 +6,7 @@ export const config = {
   matcher: ["/blog/:path*", "/card/:path*"],
 };
 
-const ImgEnd = (pathname: string) => {
+const isImgEnd = (pathname: string) => {
   return (
     pathname.endsWith(".jpg") ||
     pathname.endsWith(".jpeg") ||
@@ -21,7 +21,7 @@ export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   const referer = req.headers.get("referer");
 
-  if (pathname.startsWith("/blog") && ImgEnd(pathname)) {
+  if (pathname.startsWith("/blog") && isImgEnd(pathname)) {
     const blog = referer?.split("/").slice(-3) as string[];
     const img = pathname.split("/").pop();
     const blogImgPath = blog.join("/") + `/${img}`;
@@ -36,8 +36,7 @@ export async function middleware(req: NextRequest) {
     });
   }
 
-  if (pathname.startsWith("/card") && ImgEnd(pathname)) {
-    // console.log({ pathname });
+  if (pathname.startsWith("/card") && isImgEnd(pathname)) {
     const response = await fetch(
       new URL(`/server/blog${pathname.replace("/card", "")}`, API_SERVER)
     );

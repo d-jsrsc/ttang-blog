@@ -1,34 +1,16 @@
+import { use } from "react";
+
 import { API_SERVER } from "@/constants";
-import MarkdownShower, { MarkdownStr } from "@/components/MarkdownShower";
+import MarkdownShower from "@/components/MarkdownShower";
 
-// async function blog_data(params: string[]): Promise<string> {
-//   const response = await fetch(
-//     new URL(`/server/blog/${params.join("/")}`, API_SERVER)
-//   );
-//   const data: {
-//     content: MarkdownStr;
-//     type: string;
-//     metadata: any;
-//   } = await response.json();
+type MarkdownStr = string;
 
-//   // const mdHtml = useMemo(() => {
-//   //   if (!data?.content) return "";
-//   //   return markdownParser.render(data?.content);
-//   // }, [data?.content]);
-//   const mdHtml = markdownParser.render(data?.content);
-//   return mdHtml;
-// }
-
-export default async function Blog({
-  params,
-}: {
-  params: {
-    slug: string[];
-  };
-}) {
-  // const mdHtml = use(blog_data(params.slug));
+const fetch_blog_data = async (blog_path: string) => {
   const response = await fetch(
-    new URL(`/server/blog/${params.slug.join("/")}`, API_SERVER)
+    new URL(`/server/blog/${blog_path}`, API_SERVER),
+    {
+      cache: "no-cache",
+    }
   );
   const data: {
     content: MarkdownStr;
@@ -36,16 +18,24 @@ export default async function Blog({
     metadata: any;
   } = await response.json();
 
-  // const mdHtml = useMemo(() => {
-  //   if (!data?.content) return "";
-  //   return markdownParser.render(data?.content);
-  // }, [data?.content]);
+  return data;
+};
 
-  // const mdHtml = markdownParser.render(data.content);
+export default function Blog({
+  params,
+}: {
+  params: {
+    slug: string[];
+  };
+}) {
+  const mdHtml = use(fetch_blog_data(params.slug.join("/")));
+
+  if (!mdHtml) return null;
+
   return (
     <div className="container mx-auto mt-20 grow px-2">
       <div className="text-slate-900 dark:text-white mt-5 container mx-auto max-w-2xl">
-        <MarkdownShower content={data.content} />
+        <MarkdownShower content={mdHtml.content} />
       </div>
     </div>
   );

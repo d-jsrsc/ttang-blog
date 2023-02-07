@@ -1,18 +1,17 @@
 import { Suspense, use } from "react";
 import Image from "next/image";
 
-import ListCard from "@/components/ListCard";
-import { SkeletonCard } from "@/components/SkeletonCard";
-
-import TimeLine from "./time-line";
 import { API_SERVER } from "@/constants";
+import ListCard from "@/components/ListCard";
+import SkeletonCard from "@/components/SkeletonCard";
+import TimeLine from "@/components/Timeline";
 
 type RecommendData = {
-  type: string; //'blog',
-  path: string; //'/deno/2023-02/使用 Deno 开发一个 blog-server',
+  type: string; // 'blog',
+  path: string; // '/deno/2023-02/使用 Deno 开发一个 blog-server',
   meta: any;
   date: string;
-  card: string; //"/deno/2023-02/使用 Deno 开发一个 blog-server/card.webp";
+  card: string; // "/deno/2023-02/使用 Deno 开发一个 blog-server/card.webp";
 };
 
 export const revalidate = 60 * 60 * 12; // seconds

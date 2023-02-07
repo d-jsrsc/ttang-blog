@@ -2,8 +2,9 @@ import Link from "next/link";
 import clsx from "clsx";
 import { use } from "react";
 
-import styles from "@/styles/timeline.module.css";
 import { API_SERVER } from "@/constants";
+
+import styles from "./styles.module.css";
 
 type DateItem = {
   name: string;

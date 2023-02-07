@@ -5,3 +5,17 @@
 .markdown-body {
     background-color: inherit !important;
 }
+
+.markdown-body img {
+    object-fit: contain;
+    width: 100% !important;
+    position: relative !important;
+    height: unset !important;
+  }
+  
+  .markdown-body img {
+    width: 100%;
+  }
+  /* .unset-img > div {
+    position: unset !important;
+  } */
