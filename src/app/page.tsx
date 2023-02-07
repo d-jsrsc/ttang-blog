@@ -52,7 +52,7 @@ export default function Home() {
         />
       </div>
       <div className="bg-white dark:bg-zinc-900 pt-5 grow z-10 flex flex-col gap-5 text-slate-700 dark:text-slate-200">
-        <div className="px-2 mx-auto container max-w-7xl flex flex-row gap-5">
+        <div className="px-2 mx-auto container max-w-6xl flex flex-row gap-5">
           <div className="basis-3/4 flex flex-col gap-5">
             {data.map((item) => {
               return (

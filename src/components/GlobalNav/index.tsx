@@ -15,7 +15,7 @@ export function GlobalNav({ navs }: { navs: string[] }) {
   return (
     <header className="w-full fixed top-0 z-50  bg-white/95 dark:bg-zinc-900/95">
       <div className="w-full border-b border-b-gray-500">
-        <div className="flex items-center mx-auto container max-w-7xl py-3 px-2 gap-1">
+        <div className="flex items-center mx-auto container max-w-6xl py-3 px-2 gap-1">
           <Link
             href={"/"}
             className="mr-3 flex-none w-[2.0625rem] overflow-hidden md:w-auto"

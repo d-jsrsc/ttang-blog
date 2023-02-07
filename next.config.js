@@ -4,6 +4,9 @@ const nextConfig = {
     appDir: true,
     mdxRs: true,
   },
+  images: {
+    minimumCacheTTL: 60,
+  },
 };
 
 const withMDX = require("@next/mdx")();

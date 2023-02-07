@@ -1,6 +1,7 @@
 import ArticleCard from "@/components/AritcleCard";
 import { API_SERVER } from "@/constants";
 
+const revalidate = 60 * 60 * 24;
 export default async function Blog({
   params,
 }: {
@@ -9,7 +10,10 @@ export default async function Blog({
   };
 }) {
   const response = await fetch(
-    new URL(`/server/blog/${params.type}`, API_SERVER)
+    new URL(`/server/blog/${params.type}`, API_SERVER),
+    {
+      next: { revalidate },
+    }
   );
   const data: {
     name: string;
@@ -26,7 +30,7 @@ export default async function Blog({
     return null;
   }
   return (
-    <div className="container max-w-7xl mx-auto mt-20 max-w-8xl grow px-2">
+    <div className="container max-w-6xl mx-auto mt-20 max-w-8xl grow px-2">
       <div className="text-slate-900 dark:text-white mt-5 text-base font-medium tracking-tight">
         {/* ... {params.type}
         <div>{JSON.stringify(data)}</div> */}

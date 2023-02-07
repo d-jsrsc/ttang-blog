@@ -3,13 +3,15 @@ import { use } from "react";
 import { API_SERVER } from "@/constants";
 import MarkdownShower from "@/components/MarkdownShower";
 
+const revalidate = 60 * 60 * 24;
 type MarkdownStr = string;
 
 const fetch_blog_data = async (blog_path: string) => {
   const response = await fetch(
     new URL(`/server/blog/${blog_path}`, API_SERVER),
     {
-      cache: "no-cache",
+      // cache: "no-cache",
+      next: { revalidate },
     }
   );
   const data: {

@@ -18,10 +18,10 @@ export default function ListCard({
 }) {
   return (
     <div className="flex flex-row gap-3 h-40 group relative">
-      <div className="h-full w-52 overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75">
+      <div className="h-full basis-1/4 overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75">
         <img src={`/card${card_img}`} alt="" />
       </div>
-      <div className="flex flex-col justify-between">
+      <div className="flex flex-col basis-3/4 justify-between">
         <div className="">
           <h3 className="text-xl text-slate-500 dark:text-slate-200">
             {title}

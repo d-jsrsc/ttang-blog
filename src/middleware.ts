@@ -21,45 +21,34 @@ export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   const referer = req.headers.get("referer");
 
+  let response;
+
   if (pathname.startsWith("/blog") && isImgEnd(pathname)) {
     const blog = referer?.split("/").slice(-3) as string[];
     const img = pathname.split("/").pop();
     const blogImgPath = blog.join("/") + `/${img}`;
 
-    const response = await fetch(
-      new URL(`/server/blog/${blogImgPath}`, API_SERVER)
-    );
-
-    return new NextResponse(response.body, {
-      status: response.status,
-      ...response.headers,
-    });
+    response = await fetch(new URL(`/server/blog/${blogImgPath}`, API_SERVER));
   }
 
   if (pathname.startsWith("/card") && isImgEnd(pathname)) {
-    const response = await fetch(
+    response = await fetch(
       new URL(`/server/blog${pathname.replace("/card", "")}`, API_SERVER)
     );
+  }
 
+  if (response) {
     return new NextResponse(response.body, {
       status: response.status,
-      ...response.headers,
+      headers: {
+        "x-response-time": response.headers.get("x-response-time") || "",
+        "cache-control": response.headers.get("cache-control") || "",
+        "content-length": response.headers.get("content-length") || "",
+        "x-server": response.headers.get("server") || "",
+        "vary": response.headers.get("vary") || "",
+      },
     });
   }
 
   return NextResponse.next();
-  // const basicAuth = req.headers.get("authorization");
-  // const url = req.nextUrl;
-
-  // if (basicAuth) {
-  //   const authValue = basicAuth.split(" ")[1];
-  //   const [user, pwd] = atob(authValue).split(":");
-
-  //   if (user === basicAuthName && pwd === basicAuthPass) {
-  //     return NextResponse.next();
-  //   }
-  // }
-  // url.pathname = "/api/basic-auth";
-
-  // return NextResponse.rewrite(url);
 }
