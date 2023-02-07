@@ -7,6 +7,9 @@ const revalidate = 60 * 60 * 24;
 type MarkdownStr = string;
 
 const fetch_blog_data = async (blog_path: string) => {
+  await new Promise((resolve) => {
+    setTimeout(resolve, 100);
+  });
   const response = await fetch(
     new URL(`/server/blog/${blog_path}`, API_SERVER),
     {
