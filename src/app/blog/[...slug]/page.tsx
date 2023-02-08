@@ -8,13 +8,13 @@ type MarkdownStr = string;
 
 const fetch_blog_data = async (blog_path: string) => {
   await new Promise((resolve) => {
-    setTimeout(resolve, 100);
+    setTimeout(resolve, 500);
   });
   const response = await fetch(
     new URL(`/server/blog/${blog_path}`, API_SERVER),
     {
-      cache: "no-cache",
-      // next: { revalidate },
+      // cache: "no-cache",
+      next: { revalidate },
     }
   );
   const data: {
