@@ -38,10 +38,8 @@ export default function Blog({
   if (!mdHtml) return null;
 
   return (
-    <div className="container mx-auto mt-20 grow px-2">
-      <div className="text-slate-900 dark:text-white mt-5 container mx-auto max-w-2xl">
-        <MarkdownShower content={mdHtml.content} />
-      </div>
+    <div className="text-slate-900 dark:text-white mt-5 container mx-auto max-w-2xl">
+      <MarkdownShower content={mdHtml.content} />
     </div>
   );
 }
