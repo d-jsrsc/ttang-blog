@@ -8,7 +8,7 @@ type MarkdownStr = string;
 
 const fetch_blog_data = async (blog_path: string) => {
   await new Promise((resolve) => {
-    setTimeout(resolve, 500);
+    setTimeout(resolve, 1500);
   });
   const response = await fetch(
     new URL(`/server/blog/${blog_path}`, API_SERVER),
